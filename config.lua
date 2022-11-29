@@ -416,10 +416,102 @@ local ArtJob = {
     camoffset = vector3(5.15, 501.15, 173.04)
 }
 
+-- Police Job
+local PoliceBoss = {
+    coords = vector4(439.19, -996.0, 30.69, 338.73),
+    model = 's_f_y_cop_01',
+    missionTitle = "Warrant",
+    animation = 'WORLD_HUMAN_CLIPBOARD', -- OPTIONAL https://pastebin.com/6mrYTdQv
+    available = {from = 0, to = 24}
+}
+
+local WarrantItems = {
+    FetchItemLocation = vector4(930.22, -2986.22, 5.9, 296.14),
+    FetchItemTime = 180000, -- time it takes for the item to activate
+    FetchItem = 'securitycase', -- item (inventory)
+    FetchItemProp = 'ex_prop_adv_case_sm_03', -- item (world object)
+    FetchItemContents = 'art_notes', -- item that drops from FetchItem after FetchItemTime is over
+    FetchItemContentsAmount = 1, -- Amount of FetchItemContent items
+    FetchItemMinigame = {
+        Type = 'Circle',
+        Variables = { 2, 10 }
+    },
+    FetchItemRandom = {
+        CircleCenter = vector3(930.22, -2986.22, 5.9),
+        Locations = {
+            vector4(905.78, -2985.32, 8.69, 342.16),
+            vector4(944.61, -2989.1, 11.51, 163.45),
+            vector4(952.55, -2971.68, 24.16, 245.45),
+            vector4(954.49, -2971.37, 19.21, 227.78),
+            vector4(926.83, -2977.44, 11.51, 59.64),
+            vector4(907.2, -2985.41, 8.69, 315.79),
+            vector4(935.31, -2990.4, 5.9, 31.33),
+            vector4(960.19, -2981.6, 8.87, 141.44),
+            vector4(957.28, -2981.38, 12.82, 202.79),
+            vector4(957.36, -2968.52, 21.42, 340.39),
+            vector4(950.32, -2971.58, 18.06, 78.26),
+            vector4(942.85, -2977.92, 5.9, 86.14),
+            vector4(893.43, -2988.14, 5.9, 133.92),
+            vector4(953.62, -2981.1, 5.9, 220.64)
+        }
+    }
+}
+
+-- These will be used to pick random spots for the guards
+local WarrantGuardPositions = {
+    vector4(948.54, -2982.65, 5.9, 46.59),
+    vector4(942.53, -2978.11, 5.9, 228.74),
+    vector4(933.36, -2988.7, 5.9, 40.11),
+    vector4(922.24, -2982.61, 5.9, 251.1),
+    vector4(900.01, -2985.36, 8.69, 42.27),
+    vector4(963.11, -2989.89, 8.69, 267.47),
+    vector4(954.92, -2978.12, 11.51, 139.08),
+    vector4(941.67, -2975.87, 11.51, 138.0),
+    vector4(962.61, -2963.38, 5.9, 18.49),
+    vector4(960.33, -2964.48, 15.96, 134.64),
+    vector4(960.27, -2977.63, 23.09, 73.14),
+    vector4(955.99, -2968.1, 24.18, 355.89),
+    vector4(935.43, -2979.32, 14.33, 238.18),
+    vector4(958.3, -2985.9, 11.51, 20.67)
+}
+
+local WarrantGuards = {
+    { model = 's_m_m_highsec_02', weapon = 'weapon_pumpshotgun', armor = 100 },
+    { model = 's_m_m_highsec_02', weapon = 'WEAPON_PISTOL'},
+    { model = 's_m_m_highsec_02', weapon = 'WEAPON_PISTOL'},
+    { model = 's_m_m_highsec_02', weapon = 'weapon_pumpshotgun', armor = 100 },
+    { model = 's_m_m_highsec_02', weapon = 'WEAPON_PISTOL'},
+    { model = 's_m_m_highsec_02', weapon = 'WEAPON_PISTOL'},
+    { model = 's_m_m_highsec_02', weapon = 'weapon_pumpshotgun', armor = 100 },
+    { model = 's_m_m_highsec_02', weapon = 'WEAPON_PISTOL'},
+    { model = 's_m_m_highsec_01', weapon = 'WEAPON_PISTOL50'},
+    { model = 's_m_m_highsec_01', weapon = 'WEAPON_SMG', armor = 100 },
+}
+
+local WarrantMessages = {
+    Sender = 'Los Santos Municipal Court',
+    Subject = 'Search Warrant',
+    Message = "We have a lead that items are being smuggled through Dock A2. Go search the area and seize any evidence you come across. Our informant indicated that the dock is likely to be heavily guarded."
+}
+
+local PoliceJob = {
+    JobName = 'Smuggling Sting',
+    Token = 'raidart',
+    Boss = PoliceBoss,
+    Guards = WarrantGuards,
+    GuardPositions = WarrantGuardPositions,
+    Items = WarrantItems,
+    MinimumPolice = 0,
+    RunCost = 0,
+    Payout =  math.random(50000, 100000),
+    Messages = WarrantMessages 
+}
+
 Config.Jobs = {
     MethJob,
     CokeJob,
     WeedJob,
     ClownJob,
-    ArtJob
+    ArtJob,
+    PoliceJob
 }
